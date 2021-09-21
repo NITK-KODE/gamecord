@@ -1,0 +1,25 @@
+{
+  "name": "gamecord",
+  "version": "0.0.1",
+  "description": "A discord bot for displaying your gameing skills",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NITK-KODE/gamecord.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NITK-KODE/gamecord/issues"
+  },
+  "homepage": "https://github.com/NITK-KODE/gamecord#readme",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "mongoose": "^6.0.7"
+  }
+}
