@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const csgoSchema = new mongoose.Schema({
-    discordID: {
+    steamId: {
         type: String,
         required: true,
         unique: true,
