@@ -3,8 +3,10 @@ const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 require('dotenv').config();
 
+const mongoose = require('mongoose');
+
 // Tokesn and URLs and other constants
-const { TOKEN } = process.env;
+const { TOKEN, DB_URL } = process.env;
 
 // Create discord client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -47,4 +49,7 @@ client.on('interactionCreate', async (interaction) => {
     }
 });
 
-client.login(TOKEN);
+mongoose.connect(DB_URL, () => {
+    console.log("Mongoose connected");
+    client.login(TOKEN);
+});
