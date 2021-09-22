@@ -1,17 +1,12 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    discordID: {
+    discordId: {
         type: String,
         required: true,
         unique: true,
     },
     regGames: {
-        type: [String],
-        required: true,
-        default: [],
-    },
-    regPlatforms: {
         type: [String],
         required: true,
         default: [],
