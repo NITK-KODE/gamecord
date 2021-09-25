@@ -12,7 +12,7 @@
     },
     "rules": {
         "no-console": ["off"],
-        "indent": ["error", 4],
+        "indent": ["error", 4, { "SwitchCase": 1 }],
         "quotes": ["off"],
         "global-require": ["off"]
     }

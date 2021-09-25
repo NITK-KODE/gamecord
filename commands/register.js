@@ -3,16 +3,28 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const userModel = require('../schema/user');
 const quickEmbed = require('../helpers/quickEmbed');
 
-async function execute(interaction) {
+// Only register the user, no replying
+async function justRegister(userid) {
     try {
         await userModel.create({
-            discordId: interaction.user.id,
+            discordId: userid,
             regGames: [],
             regPlatforms: [],
             level: 0,
         });
-        quickEmbed.success(interaction, "Successfully registered. Next, connect your steam / (valo / etc) account");
+        return true;
     } catch (err) {
+        console.error(err);
+        return false;
+    }
+}
+
+// Register user to discord with reply
+async function execute(interaction) {
+    const result = await justRegister(interaction.user.id);
+    if (result === true) {
+        quickEmbed.success(interaction, "Successfully registered. Next, connect your steam / (valo / etc) account");
+    } else {
         quickEmbed.error(interaction, "Error during registration");
     }
 }
@@ -22,4 +34,5 @@ module.exports = {
         .setName('register')
         .setDescription("Registering for this service"),
     execute,
+    justRegister,
 };

@@ -1,5 +1,7 @@
 // Helper for quickly sending small embeds
-const { MessageEmbed } = require('discord.js');
+// this uses reply to send embeds
+// so you can't use it to update, only to send reply first time (not even deferred)
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 async function error(interaction, msg) {
     return interaction.reply({
@@ -25,4 +27,25 @@ async function assert(interaction, msg) {
     });
 }
 
-module.exports = { error, success, assert };
+async function link(interaction, msg, url) {
+    const row = new MessageActionRow()
+        .addComponents(
+            new MessageButton()
+                .setLabel("Link")
+                .setStyle("LINK")
+                .setURL(url),
+        );
+    return interaction.reply({
+        embeds: [new MessageEmbed()
+            .setColor("LIGHT_GREY")
+            .setDescription(msg)],
+        components: [row],
+    });
+}
+
+module.exports = {
+    error,
+    success,
+    assert,
+    link,
+};
