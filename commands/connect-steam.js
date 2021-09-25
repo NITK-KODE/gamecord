@@ -3,6 +3,7 @@ const axios = require('axios').default;
 
 const userModel = require('../schema/user');
 const quickEmbed = require('../helpers/quickEmbed');
+const registerjs = require('./register');
 
 // Once we get the current user's profile and get the SteamID64
 // Update the DB with the new SteamID64
@@ -18,8 +19,11 @@ async function gotProfile(res, interaction) {
         return quickEmbed.error(interaction, "Error finding your profile");
     }
 
-    if (!user) return quickEmbed.assert(interaction, "Please register first");
-
+    // If user not registered, register first
+    if (!user) {
+        const result = registerjs.justRegister(interaction.user.id);
+        if (!result) return quickEmbed.error(interaction, "Error registering");
+    }
     await user.updateOne({ steam: res.response.steamid.toString() });
     return quickEmbed.success(interaction, "Successfully linked to Steam. Next, you can register for a game");
 }
